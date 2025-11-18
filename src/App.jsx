@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AlertCircle, CheckCircle, TrendingUp, FileText, AlertTriangle } from 'lucide-react';
 
-export default function UserStoryAnalyzer() {
+export default function App() {
   const [userStory, setUserStory] = useState('');
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,6 @@ Only return valid JSON, no markdown or other text.`
       const data = await response.json();
       const textContent = data.content.find(item => item.type === 'text')?.text || '';
       
-      // Clean up response and parse JSON
       const cleanJson = textContent.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
       const parsed = JSON.parse(cleanJson);
       
@@ -79,7 +78,6 @@ Only return valid JSON, no markdown or other text.`
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-2">
             AI User Story Quality Analyzer
@@ -89,7 +87,6 @@ Only return valid JSON, no markdown or other text.`
           </p>
         </div>
 
-        {/* Input Section */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
           <label className="block text-lg font-semibold text-gray-700 mb-3">
             Paste Your User Story
@@ -109,10 +106,8 @@ Only return valid JSON, no markdown or other text.`
           </button>
         </div>
 
-        {/* Results Section */}
         {analysis && (
           <div className="space-y-6">
-            {/* Quality Score Card */}
             <div className={`${getScoreBackground(analysis.qualityScore)} border-2 rounded-lg p-6`}>
               <div className="flex items-center justify-between">
                 <div>
@@ -126,7 +121,6 @@ Only return valid JSON, no markdown or other text.`
               </div>
             </div>
 
-            {/* Issues & Missing Elements */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <div className="flex items-center mb-4">
@@ -159,7 +153,6 @@ Only return valid JSON, no markdown or other text.`
               </div>
             </div>
 
-            {/* Enhanced Story */}
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center mb-4">
                 <TrendingUp className="text-green-500 mr-2" size={24} />
@@ -173,7 +166,6 @@ Only return valid JSON, no markdown or other text.`
               </div>
             </div>
 
-            {/* Acceptance Criteria */}
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center mb-4">
                 <CheckCircle className="text-blue-500 mr-2" size={24} />
@@ -189,7 +181,6 @@ Only return valid JSON, no markdown or other text.`
               </ul>
             </div>
 
-            {/* Edge Cases */}
             <div className="bg-white rounded-lg shadow-lg p-6">
               <div className="flex items-center mb-4">
                 <AlertCircle className="text-purple-500 mr-2" size={24} />
@@ -205,7 +196,6 @@ Only return valid JSON, no markdown or other text.`
               </ul>
             </div>
 
-            {/* ROI Metrics Footer */}
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-lg p-6 text-white">
               <h3 className="text-xl font-bold mb-3">Estimated Impact</h3>
               <div className="grid md:grid-cols-3 gap-4 text-center">
@@ -226,7 +216,6 @@ Only return valid JSON, no markdown or other text.`
           </div>
         )}
 
-        {/* Demo Note */}
         {!analysis && (
           <div className="bg-white rounded-lg shadow-lg p-6 text-center">
             <p className="text-gray-600">
